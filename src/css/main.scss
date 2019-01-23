@@ -1,0 +1,113 @@
+@import 'partials/bootstrap.grid';
+@import 'partials/animate';
+@import 'partials/hover';
+@import url('https://use.fontawesome.com/releases/v5.1.0/css/all.css'); /* fonts START */
+@font-face {
+  font-family: SourceSansPro-Regular;
+  src: url("https://www2.arccorp.com/static/fonts/SourceSansPro-Regular.ttf");
+  src: url("https://www2.arccorp.com/static/fonts/SourceSansPro-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: SourceSansPro-Bold;
+  src: url("https://www2.arccorp.com/static/fonts/SourceSansPro-Bold.ttf");
+  src: url("https://www2.arccorp.com/static/fonts/SourceSansPro-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: SourceSansPro-Black;
+  src: url("https://www2.arccorp.com/static/fonts/SourceSansPro-Black.ttf");
+  src: url("https://www2.arccorp.com/static/fonts/SourceSansPro-Black.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: SourceSansPro-Light;
+  src: url("https://www2.arccorp.com/globalassets/style/fonts/SourceSansPro-Light.ttf");
+  src: url("https://www2.arccorp.com/globalassets/style/fonts/SourceSansPro-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: SourceSansPro-SemiBold;
+  src: url("https://www2.arccorp.com/globalassets/style/fonts/SourceSansPro-SemiBold.ttf");
+  src: url("https://www2.arccorp.com/globalassets/style/fonts/SourceSansPro-SemiBold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* fonts END */
+[v-cloak] {
+  display: none;
+}
+
+body {
+  color: #ffffff;
+  background: #212226;
+  font-family: SourceSansPro-Regular, helvetica, arial, sans-serif;
+}
+
+h1,
+h2 {
+  font-family: "SourceSansPro-Light", helvetica, arial, sans-serif;
+  font-weight: 300;
+  font-size: 3rem;
+}
+
+.line {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2px;
+}
+
+.vertLine {
+  stroke: #33353b;
+  stroke-width: 1px;
+}
+
+.xAxis {
+  line {
+    fill: none;
+    stroke: #ADB0B6;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+
+  path {
+    display: none;
+  }
+
+  tick {
+    display: none;
+  }
+
+  &.xDate {
+    text {
+      fill: #ffffff;
+      font-size: 1.2rem;
+    }
+
+    line {
+      display: none;
+    }
+  }
+}
+
+.yAxis {
+  path {
+    display: none;
+  }
+}
+
+.tick text {
+  font-size: 1rem;
+  fill: #666A73;
+  padding: 12px;
+}
+
+.dataPoint {
+  fill: #212226;
+  stroke: #96BE3C;
+  stroke-width: 3;
+}
