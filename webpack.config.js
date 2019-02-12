@@ -11,7 +11,8 @@
   module.exports = [
 		{
 			entry: {
-					main: './src/js/main.js'
+					main: './src/js/main.js',
+          data: './src/js/data.js'
 			},
 			output: {
 				filename: '[name].min.js',

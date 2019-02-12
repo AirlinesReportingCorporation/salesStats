@@ -1,0 +1,286 @@
+.data-panel {
+  height: auto !important;
+  margin-top: 0;
+}
+
+.data-panel__inside {
+  display: none;
+}
+
+.data-panel .background {
+  position: relative;
+}
+
+.primary-nav__after,
+.primary-nav__before {
+  display: none;
+}
+
+.data-panel+footer {
+  margin-top: 0 !important;
+}
+/* Our Data */
+
+.ourData {
+  background: #212226;
+
+  .dataSections {
+    .dataSection1,
+    .dataSection2 {
+      background: #242529;
+      padding: 60px 0;
+
+      h2 {
+        color: #ffffff;
+        font-family: SourceSansPro-Light, SourceSansPro-Regular, arial, sans-serif;
+        font-size: 3.25rem;
+        line-height: 1.1;
+      }
+    }
+
+    .dataContainer {
+      min-height: 430px;
+      background: #242529;
+      border: 1px solid #444444;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      padding: 20px;
+      position: relative;
+
+      .tooltip {
+        position: absolute;
+        background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/tooltip.png");
+        height: 18px;
+        width: 18px;
+        top: 20px;
+        right: 20px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+      }
+
+      h3 {
+        color: #ffffff;
+        font-family: SourceSansPro-Semibold, SourceSansPro-Regular, arial, sans-serif;
+        font-size: 1rem;
+      }
+
+      .mainStat {
+        font-family: SourceSansPro-Light, SourceSansPro-Regular, arial, sans-serif;
+        font-size: 2.125rem;
+        color: #ffffff;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        overflow-wrap: break-word;
+      }
+
+      .svgChart {
+        min-height: 150px;
+      }
+
+      .btnContainer {
+        position: absolute;
+        padding: 0 20px;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+      }
+
+      a.ctaBtn {
+        background: #4b5056;
+        border-color: #4b5056;
+        color: #242529;
+        width: 100%;
+      }
+
+      a.ctaBtn:hover {
+        background-color: #707780;
+        border-color: #707780;
+      }
+    }
+
+    .dataSection1 {
+      background: #242529 url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/dataSection1.jpg?1") top center no-repeat;
+      background-size: 100% auto;
+
+      h2 {
+        color: #666666;
+        padding: 60px 0;
+
+        span {
+          font-family: SourceSansPro-Bold, SourceSansPro-Regular, arial, sans-serif;
+          color: #fd2472;
+        }
+      }
+    }
+
+    .dataSection2 {
+      background: #242529 url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/dataSection2.jpg") top center no-repeat;
+      background-size: 100% auto;
+
+      h2 {
+        padding: 300px 0 60px;
+
+        span {
+          font-family: SourceSansPro-Bold, SourceSansPro-Regular, arial, sans-serif;
+          color: #189bb0;
+        }
+      }
+    }
+  }
+
+  .dataProduct {
+    .owl-carousel.owl-theme .owl-dots .owl-dot span {
+      background: #bbbbbb;
+      color: #565350;
+      border-radius: 0;
+      width: 40px;
+      height: 6px;
+      margin: 5px 7px 5px 0;
+    }
+
+    .home-page .owl-carousel .owl-theme .owl-dots .owl-dot:hover span,
+    .owl-carousel.owl-theme .owl-dots .owl-dot.active span {
+      background: #189bb0;
+    }
+
+    .owl-jumbotron {
+      .owl-dots {
+        bottom: 35px;
+        position: absolute;
+        right: 50%;
+        width: 570px;
+        margin-right: 0;
+        text-align: left;
+      }
+
+      .owl-nav {
+        display: none;
+      }
+
+      .owl-nav {
+        display: none;
+      }
+    }
+
+    .owl-theme .owl-dots .owl-dot {
+      display: inline-block;
+      zoom: 1;
+      *display: inline;
+    }
+
+    .owl-carousel {
+      .carousel-slide {
+        margin: 0 auto;
+        display: table;
+        color: #ffffff;
+        font-family: SourceSansPro-Regular, helvetica, arial, sans-serif;
+        padding: 0;
+        height: 600px;
+        vertical-align: middle;
+        max-width: 1170px;
+        width: 100%;
+      }
+
+      .carousel-slide-content {
+        position: relative;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: left;
+        max-width: 700px;
+        width: 100%;
+        z-index: 3;
+
+        .block-header {
+          font-family: SourceSansPro-Light, helvetica, arial, sans-serif;
+          font-size: 3rem;
+          color: #ffffff;
+          text-align: left;
+        }
+
+        p {
+          font-family: RobotoSlab-Light, SourceSansPro-Regular, helvetica, arial, sans-serif;
+          font-size: 1.125rem;
+          line-height: 1.5rem;
+        }
+      }
+
+      .slide-11 {
+        background: url("https://www2.arccorp.com/globalassets/homepage/redesign/slides/carousel11.jpg") center center no-repeat;
+        background-size: cover;
+      }
+    }
+  }
+
+  .transactionData {
+    background: #242529 url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/transactionaldata.jpg") top center no-repeat;
+    background-size: 100% auto;
+    padding: 60px 0;
+
+    .transactionTitle {
+      text-align: center;
+    }
+
+    h2 {
+      color: #ffffff;
+      font-family: SourceSansPro-Semibold, SourceSansPro-Regular, arial, sans-serif;
+      font-size: 3.25rem;
+      margin-bottom: 60px;
+    }
+
+    .dataFeatures {
+      background: rgba(0,0,0,0.5);
+      color: #ffffff;
+      padding: 60px;
+
+      img {
+        margin-bottom: 20px;
+      }
+
+      .dataFeatureTitle {
+        border-top: 2px solid #189bb0;
+        font-family: SourceSansPro-Semibold, SourceSansPro-Regular, arial, sans-serif;
+        font-size: 1.5rem;
+        padding-top: 15px;
+        padding-bottom: 15px;
+      }
+
+      p {
+        color: #888888;
+      }
+    }
+  }
+
+  .ourStory {
+    background: url('https://www2.arccorp.com/globalassets/about-us/our-data/redesign/ourStory.jpg') center center no-repeat;
+    background-size: cover;
+    position: relative;
+    color: #ffffff;
+    padding: 120px 0;
+    overflow: hidden;
+
+    h2 {
+      color: #ffffff;
+      font-family: Roboto-Slab, SourceSansPro-Regular, helvetica, arial, sans-serif;
+      font-size: 3rem;
+    }
+
+    .blockText {
+      max-width: 1170px;
+      margin: 0 auto;
+    }
+
+    .geoPatternWhite {
+      position: absolute;
+      left: 0;
+      top: -30%;
+    }
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1170px;
+  }
+}

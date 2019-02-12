@@ -5,11 +5,11 @@ import '../css/main.scss';
 import $ from 'jquery';
 import Vue from 'vue';
 import * as d3 from "d3";
-import * as britecharts from "britecharts";
 import d3Selection from "d3-selection";
 import numeral from "numeral";
 import saveSvgAsPng from "save-svg-as-png";
-
+import owlCarousel from 'owl.carousel';
+ 
 //file path for corporate stats w/ timestamp
 var filePath = "https://www2.arccorp.com/globalassets/forms/corpstats.csv?" + new Date().getTime();
 
