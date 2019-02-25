@@ -5,6 +5,7 @@ import Vue from 'vue';
 import * as d3 from "d3";
 import numeral from "numeral";
 import saveSvgAsPng from "save-svg-as-png";
+import Tooltip from "tooltip.js";
 
 var jData = [];
 
@@ -38,14 +39,77 @@ var data = {
   passenger_trips: "",
   tot_emd_sales: "",
   tot_sales: "",
+  tot_sales_year: "",
+  tot_sales_yoy: "",
+  global_segments: "",
+  global_segments_yoy: "",
   avg_tkt_price: "",
   tot_agency_loc: ""
 };
 
 var app = new Vue({
   el: '.dataSections',
-  data: data
+  data: data,
+  computed: {
+    tot_sales_yoy_percent: function() {
+      if (this.tot_sales_yoy > 0) {
+        return "<span class='positive'>+ " + this.tot_sales_yoy + "%</span>";
+      } else {
+        return "<span class='negative'>- " + this.tot_sales_yoy + "%</span>";
+      }
+
+      return "<span>" + this.tot_sales_yoy + "%</span>";
+
+    }
+  }
 })
+
+//set tooltips
+function setTooltips() {
+  new Tooltip($("#totalSales .dataTooltip"), {
+    placement: 'top', // or bottom, left, right, and variations
+    title: "Total amount (in USD) processed by ARC for air travel transactions including all fares, fees, and taxes across all forms of payment and all transaction types."
+  });
+
+  new Tooltip($("#global-segments .dataTooltip"), {
+    placement: 'top', // or bottom, left, right, and variations
+    title: "Total number of flight segments added to ARC’s global air travel database."
+  });
+
+  new Tooltip($("#passenger-trips .dataTooltip"), {
+    placement: 'top', // or bottom, left, right, and variations
+    title: "Total number of passengers taking a trip from one airport to another using either direct or connecting flights. "
+  });
+
+  new Tooltip($("#emd-sales .dataTooltip"), {
+    placement: 'top', // or bottom, left, right, and variations
+    title: "Electronic miscellaneous document transactions indicate sales of ancillary services (e.g. premium seats) and other miscellaneous services settled separately from the airline ticket used for travel."
+  });
+
+  new Tooltip($("#data-airlines .dataTooltip"), {
+    placement: 'top', // or bottom, left, right, and variations
+    title: "Total ARC-participating airlines as of the end of the most recent calendar month."
+  });
+
+  new Tooltip($("#data-commissions .dataTooltip"), {
+    placement: 'top', // or bottom, left, right, and variations
+    title: "Total YTD agent commissions processed through ARC.  "
+  });
+
+  new Tooltip($("#data-average-ticket-price .dataTooltip"), {
+    placement: 'top', // or bottom, left, right, and variations
+    title: "Average ticket price (in USD) for a round-trip ticket settled through ARC for an itinerary that included only U.S. domestic travel."
+  });
+
+  new Tooltip($("#data-retail .dataTooltip"), {
+    placement: 'top', // or bottom, left, right, and variations
+    title: "Total number of ARC-accredited travel agency locations as of the end of the most recent calendar month. "
+  });
+
+
+}
+
+setTooltips();
 
 //extract data from csv
 d3.csv(filePath, function(data) {
@@ -70,8 +134,6 @@ d3.csv(filePath, function(data) {
   //get last year dates
   yoyDate = setYoyDate();
 
-  console.log(yoyDate);
-
   var n = 12;
 
   var domesticFareAmt = getFilteredData(n, "DOMESTIC_FARE_AMT");
@@ -87,6 +149,11 @@ d3.csv(filePath, function(data) {
 
   // get total sales TOT_SALES_AMT
   data.tot_sales = numeral(getDataPoint(currentDate, "TOT_SALES_AMT")).format('$0,0');
+  console.log(currentDate);
+  data.tot_sales_year = formatMonth(currentDate.split('-')[1]) + " " + currentDate.split('-')[0];
+  data.tot_sales_yoy = getYoyPercentage(currentDate, "TOT_SALES_AMT");
+
+  //data.global_segments = 
 
   // average ticket place AVG_TKT_PRICE
   data.avg_tkt_price = numeral(getDataPoint(currentDate, "AVG_TKT_PRICE")).format('$0,0');
@@ -95,6 +162,16 @@ d3.csv(filePath, function(data) {
   data.tot_agency_loc = numeral(getDataPoint(currentDate, "RETAIL_LOCATIONS_CNT")).format('0,0');
 
   drawChart("#testChart", domesticFareAmt, "DT", "DOMESTIC_FARE_AMT");
+
+  //drawChart("#totalSales", );
+
+  var totalSalesData = getYearsData(currentDate, 7, "TOT_SALES_AMT");
+
+  console.log(totalSalesData);
+
+  //draw total sales bar chart
+  drawBarChart("#totalSales .svgChart", totalSalesData, "DT", "TOT_SALES_AMT", "tot_sales", "tot_sales_year", "dollar");
+  $("#totalSales .dataBar").last().addClass("last");
 
   setTimeout(function() {
 
@@ -109,6 +186,82 @@ d3.csv(filePath, function(data) {
 
 })
 
+function formatMonth(n) {
+  n = parseInt(n);
+
+  switch (n) {
+    case 1:
+      return "Jan";
+      break;
+    case 2:
+      return "Feb";
+    case 3:
+      return "March";
+      break;
+    case 4:
+      return "Apr";
+      break;
+    case 5:
+      return "May";
+      break;
+    case 6:
+      return "Jun";
+      break;
+    case 7:
+      return "Jul";
+      break;
+    case 8:
+      return "Aug";
+      break;
+    case 9:
+      return "Sep";
+      break;
+    case 10:
+      return "Oct";
+      break;
+    case 11:
+      return "Nov";
+      break;
+    case 12:
+      return "Dec";
+      break;
+    default:
+      break;
+  }
+
+  return false;
+}
+
+//get last n years from a start date
+function getYearsData(startDate, n, columnName) {
+  var columns = [];
+
+  var date = startDate;
+  var year = date.split("-")[0];
+  var month = date.split("-")[1];
+  var day = date.split("-")[2];
+
+
+
+  //add preceding years including itself
+  for (var i = 0; i < n; i++) {
+    console.log(date);
+    date = (parseInt(year) - i) + '-' + month + '-' + day;
+    //console.log(date);
+    var dataPoint = getDataPoint(date, columnName);
+
+    var dataArray = {
+      DT: date
+    };
+    dataArray[columnName] = Math.floor(dataPoint);
+
+    columns.push(dataArray);
+  }
+
+  return columns.reverse();
+}
+
+//filteredData
 function getFilteredData(n, columnName) {
   var e = [];
   var id = parseInt(currentDateID);
@@ -136,12 +289,14 @@ function getDataPoint(date, columnName) {
   return jData[dateID][columnName];
 }
 
+//set most current date from csv
 function setCurrentDate() {
   return d3.max(jData, function(d, i) {
     return d.DT;
   });
 }
 
+//get id from currnet data
 function setCurrentDateID() {
   var currentDateID = jData.findIndex(function(e) {
     return e.DT == currentDate;
@@ -156,6 +311,7 @@ function setOldestDate() {
   });
 }
 
+//get id of oldest date
 function setOldestDateID() {
   var OldestDateID = jData.findIndex(function(e) {
     return e.DT == oldestDate;
@@ -163,9 +319,109 @@ function setOldestDateID() {
   return jData[OldestDateID].ID;
 }
 
-function setYoyDate(){
+//get previous year from current date
+function setYoyDate() {
   var curYear = currentDate.substring(0, 4);
   return currentDate.replace(curYear, curYear - 1);
+}
+
+function getYoyPercentage(startDate, columnName) {
+  var percentage = 0;
+
+  var curVal = getDataPoint(startDate, columnName);
+  var lastVal = getDataPoint(yoyDate, columnName);
+
+  percentage = parseFloat((curVal - lastVal) / curVal) * 100.0;
+
+  return numeral(percentage).format('0[.]00');
+}
+
+function drawBarChart(selector, chartdata, xkey, ykey, dataAttr, dataAttr2, format) {
+
+  var margin = {
+      top: 5,
+      right: 5,
+      bottom: 5,
+      left: 5
+    },
+    width = 260 - margin.left - margin.right,
+    height = 100 - margin.top - margin.bottom;
+
+  var parseTime = d3.timeParse("%Y-%m-%d");
+
+
+  var svg = d3.select(selector).append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform",
+      "translate(" + margin.left + "," + margin.top + ")");
+
+  x = d3.scaleBand()
+    .range([margin.left, width - margin.right])
+    .padding(0.5)
+    .paddingOuter(0.4)
+
+  y = d3.scaleLinear()
+    .range([height - margin.bottom, margin.top])
+
+  x.domain(chartdata.map(function(d) {
+    return d[xkey];
+  }));
+  y.domain([0, d3.max(chartdata, function(d) {
+    return d[ykey];
+  })]);
+
+  svg.selectAll("bar")
+    .data(chartdata)
+    .enter()
+    .append('rect')
+    .attr('class', 'dataBar')
+    .attr('x', (d) => x(d[xkey]))
+    .attr('width', x.bandwidth())
+    .attr('y', (d) => y(d[ykey]))
+    .attr('height', (d) => height - y(d[ykey]))
+    .on("mouseover", function(d) {
+      var key = d[xkey];
+      var val = d[ykey];
+      if (format === "dollar") {
+        val = numeral(val).format("$0,0");
+      } else {
+        val = numeral(val).format("0,0");
+      }
+
+      key = formatMonth(key.split('-')[1]) + " " + key.split('-')[0];
+
+      data[dataAttr] = val;
+      data[dataAttr2] = key;
+    })
+    .on("mouseout", function(d) {
+      var key = chartdata[chartdata.length - 1][xkey];
+      var val = chartdata[chartdata.length - 1][ykey];
+
+      if (format === "dollar") {
+        val = numeral(val).format("$0,0");
+      } else {
+        val = numeral(val).format("0,0");
+      }
+
+      key = formatMonth(key.split('-')[1]) + " " + key.split('-')[0];
+
+      data[dataAttr] = val;
+      data[dataAttr2] = key;
+    });
+
+
+  svg.append("g")
+    .attr("class", "x-axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+  // add the y Axis
+  svg.append("g")
+    .attr("class", "y-axis")
+    .call(d3.axisLeft(y));
+
 }
 
 function drawChart(selector, data, xkey, ykey) {
@@ -296,7 +552,7 @@ function redrawChart(selector, data, xkey, ykey) {
 
   var yPercentage = (yExtent[1] - yExtent[0]) * 0.15;
 
-  console.log([parseInt(yExtent[0] * 0.85), parseInt(yExtent[1] * 1.15)]);
+  //console.log([parseInt(yExtent[0] * 0.85), parseInt(yExtent[1] * 1.15)]);
 
   y.domain([parseInt(yExtent[0] * 0.85), parseInt(yExtent[1] * 1.15)]);
 

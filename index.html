@@ -635,12 +635,22 @@
               </div>
               <div class="row">
                 <div class="col-lg-3 col-md-6">
-                  <div class="dataContainer">
-                    <div class="tooltip"></div>
+                  <div id="totalSales" class="dataContainer">
+                    <div class="dataTooltip"></div>
                     <h3>Total Sales</h3>
                     <div class="mainStat">{{tot_sales}}</div>
                     <div class="svgChart">
 
+                    </div>
+                    <div class="mainStatDate">{{tot_sales_year}}</div>
+                    <div class="mainStatPercentChange">
+                      <span v-html="tot_sales_yoy_percent"></span>
+                      <div class="mainStatPercentChangeCopy">
+                        Year over year
+                      </div>
+                      <div class="mainStatPercentChangeBar">
+                        <div class="barChange" v-bind:style="{ width: tot_sales_yoy +'%'}"></div>
+                      </div>
                     </div>
                     <div class="btnContainer">
                       <a href="#" class="ctaBtn">View Full Details</a>
@@ -648,10 +658,10 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                  <div class="dataContainer">
-                    <div class="tooltip"></div>
-                    <h3>Total Transactions</h3>
-                    <div class="mainStat">$90,215,324,334</div>
+                  <div id="global-segments" class="dataContainer">
+                    <div class="dataTooltip"></div>
+                    <h3>Global Segments</h3>
+                    <div class="mainStat">{{global_segments}}</div>
                     <div class="svgChart">
 
                     </div>
@@ -662,7 +672,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                   <div id="passenger-trips"class="dataContainer">
-                    <div class="tooltip"></div>
+                    <div class="dataTooltip"></div>
                     <h3>Passenger Trips</h3>
                     <div class="mainStat">{{passenger_trips}}</div>
                     <div class="svgChart">
@@ -674,8 +684,8 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                  <div class="dataContainer">
-                    <div class="tooltip"></div>
+                  <div id="emd-sales" class="dataContainer">
+                    <div class="dataTooltip"></div>
                     <h3>EMD Sales</h3>
                     <div class="mainStat">{{tot_emd_sales}}</div>
                     <div class="svgChart">
@@ -700,7 +710,7 @@
               <div class="row">
                 <div class="col-lg-3 col-md-6">
                   <div id="data-airlines" class="dataContainer">
-                    <div class="tooltip"></div>
+                    <div class="dataTooltip"></div>
                     <h3>Airlines</h3>
                     <div class="svgChart">
                       <div class="mainStatcontainer">
@@ -714,8 +724,8 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                  <div class="dataContainer">
-                    <div class="tooltip"></div>
+                  <div id="data-commissions" class="dataContainer">
+                    <div class="dataTooltip"></div>
                     <h3>Commissions</h3>
                     <div class="mainStat">$90,215,324,334</div>
                     <div class="svgChart">
@@ -728,7 +738,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                   <div id="data-average-ticket-price" class="dataContainer">
-                    <div class="tooltip"></div>
+                    <div class="dataTooltip"></div>
                     <h3>Average Ticket Price</h3>
                     <div class="mainStat">{{avg_tkt_price}}</div>
                     <div class="svgChart">
@@ -740,10 +750,10 @@
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                  <div class="dataContainer">
-                    <div class="tooltip"></div>
+                  <div id="data-retail" class="dataContainer">
+                    <div class="dataTooltip"></div>
                     <h3>Retail Agency Locations</h3>
-                    <div class="mainStat">{$90,215,324,334}</div>
+                    <div class="mainStat">{{tot_agency_loc}}</div>
                     <div class="svgChart">
 
                     </div>

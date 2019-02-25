@@ -1,0 +1,17 @@
+.x-axis,
+.y-axis {
+  display: none;
+}
+
+.dataBar {
+  fill: #4b5056;
+
+  &.last {
+    fill: #96BE3C;
+  }
+
+  &:hover {
+    fill: #ffffff;
+    cursor: pointer;
+  }
+}
