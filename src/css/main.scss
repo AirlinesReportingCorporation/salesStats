@@ -66,6 +66,9 @@ h2 {
 .vertLine {
   stroke: #33353b;
   stroke-width: 1px;
+  &.first {
+    display: none;
+  }
 }
 
 .xAxis {

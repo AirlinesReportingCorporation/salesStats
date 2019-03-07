@@ -1,5 +1,7 @@
 .x-axis,
-.y-axis {
+.y-axis,
+.xAxis,
+.yAxis {
   display: none;
 }
 
@@ -13,5 +15,32 @@
   &:hover {
     fill: #ffffff;
     cursor: pointer;
+  }
+}
+
+.line {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2px;
+}
+
+.vertLine {
+  stroke: #33353b;
+  stroke-width: 1px;
+  &.first {
+    display: none;
+  }
+}
+
+.dataPoint {
+  fill: #212226;
+  stroke: #ffffff;
+  stroke-width: 2;
+  &:hover {
+    cursor: pointer;
+    stroke: #96BE3C;
+  }
+  &.last {
+    stroke: #96BE3C;
   }
 }

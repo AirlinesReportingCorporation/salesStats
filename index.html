@@ -634,7 +634,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-6">
                   <div id="totalSales" class="dataContainer">
                     <div class="dataTooltip"></div>
                     <h3>Total Sales</h3>
@@ -644,12 +644,12 @@
                     </div>
                     <div class="mainStatDate">{{tot_sales_year}}</div>
                     <div class="mainStatPercentChange">
-                      <span v-html="tot_sales_yoy_percent"></span>
+                      <span v-html="percentFormat('tot_sales_yoy')"></span>
                       <div class="mainStatPercentChangeCopy">
                         Year over year
                       </div>
                       <div class="mainStatPercentChangeBar">
-                        <div class="barChange" v-bind:style="{ width: tot_sales_yoy +'%'}"></div>
+                        <div class="barChange" v-bind:class="{ negative: tot_sales_yoy < 0 }" v-bind:style="{ width: tot_sales_yoy +'%'}"></div>
                       </div>
                     </div>
                     <div class="btnContainer">
@@ -657,7 +657,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-6">
                   <div id="global-segments" class="dataContainer">
                     <div class="dataTooltip"></div>
                     <h3>Global Segments</h3>
@@ -665,31 +665,61 @@
                     <div class="svgChart">
 
                     </div>
+                    <div class="mainStatDate">{{global_segments_year}}</div>
+                    <div class="mainStatPercentChange">
+                      <span v-html="percentFormat('global_segments_yoy')"></span>
+                      <div class="mainStatPercentChangeCopy">
+                        Year over year
+                      </div>
+                      <div class="mainStatPercentChangeBar">
+                        <div class="barChange" v-bind:class="{ negative: global_segments_yoy < 0 }" v-bind:style="{ width: Math.abs(global_segments_yoy) +'%'}"></div>
+                      </div>
+                    </div>
                     <div class="btnContainer">
                       <a href="#" class="ctaBtn">View Full Details</a>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                  <div id="passenger-trips"class="dataContainer">
+                <div class="col-xl-3 col-lg-6">
+                  <div id="passenger-trips" class="dataContainer">
                     <div class="dataTooltip"></div>
                     <h3>Passenger Trips</h3>
                     <div class="mainStat">{{passenger_trips}}</div>
                     <div class="svgChart">
 
                     </div>
+                    <div class="mainStatDate">{{passenger_trips_year}}</div>
+                    <div class="mainStatPercentChange">
+                      <span v-html="percentFormat('passenger_trips_yoy')"></span>
+                      <div class="mainStatPercentChangeCopy">
+                        Year over year
+                      </div>
+                      <div class="mainStatPercentChangeBar">
+                        <div class="barChange" v-bind:class="{ negative: passenger_trips_yoy < 0 }" v-bind:style="{ width: Math.abs(passenger_trips_yoy) +'%'}"></div>
+                      </div>
+                    </div>
                     <div class="btnContainer">
                       <a href="#" class="ctaBtn">View Full Details</a>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-6">
                   <div id="emd-sales" class="dataContainer">
                     <div class="dataTooltip"></div>
                     <h3>EMD Sales</h3>
                     <div class="mainStat">{{tot_emd_sales}}</div>
                     <div class="svgChart">
 
+                    </div>
+                    <div class="mainStatDate">{{tot_emd_sales_year}}</div>
+                    <div class="mainStatPercentChange">
+                      <span v-html="percentFormat('tot_emd_sales_yoy')"></span>
+                      <div class="mainStatPercentChangeCopy">
+                        Year over year
+                      </div>
+                      <div class="mainStatPercentChangeBar">
+                        <div class="barChange" v-bind:class="{ negative: tot_emd_sales_yoy < 0 }" v-bind:style="{ width: Math.abs(tot_emd_sales_yoy) +'%'}"></div>
+                      </div>
                     </div>
                     <div class="btnContainer">
                       <a href="#" class="ctaBtn">View Full Details</a>
@@ -708,13 +738,17 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-6">
                   <div id="data-airlines" class="dataContainer">
                     <div class="dataTooltip"></div>
                     <h3>Airlines</h3>
                     <div class="svgChart">
                       <div class="mainStatcontainer">
-                        <div class="mainStat">{{tot_airlines}}</div>
+                        <div class="mainStat">
+                          <div class="mainStatInner">
+                            {{tot_airlines}}
+                          </div>
+                        </div>
                       </div>
 
                     </div>
@@ -723,7 +757,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-6">
                   <div id="data-commissions" class="dataContainer">
                     <div class="dataTooltip"></div>
                     <h3>Commissions</h3>
@@ -736,24 +770,60 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-6">
                   <div id="data-average-ticket-price" class="dataContainer">
                     <div class="dataTooltip"></div>
                     <h3>Average Ticket Price</h3>
-                    <div class="mainStat">{{avg_tkt_price}}</div>
-                    <div class="svgChart">
-
+                    <div class="mainStat">
+                      <div class="row no-gutters">
+                        <div class="col-4">
+                          <h3>{{avg_tkt_price}}</h3>
+                        </div>
+                        <div class="col-8">
+                          <div class="mainStatDate">for {{tot_emd_sales_year}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mainStatPercentChange">
+                      <span v-html="getTicketYoy"></span>
+                      <div class="mainStatPercentChangeCopy">
+                        from last month
+                      </div>
+                      <div class="mainStatPercentChangeBar">
+                        <div class="barChange" v-bind:class="{ negative: avg_tkt_price_yoy < 0 }" v-bind:style="{ width: Math.abs(avg_tkt_price_yoy) +'%'}"></div>
+                      </div>
+                    </div>
+                    <div class="ticketPrices">
+                      <div class="ticketPrice">
+                        <div class="row no-gutters">
+                          <div class="col-4">
+                            <h3>{{avg_tkt_price_ytd}}</h3>
+                          </div>
+                          <div class="col-8">
+                            <p>2019 YTD average price</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ticketPrice">
+                        <div class="row no-gutters">
+                          <div class="col-4">
+                            <h3>{{avg_tkt_price_ly}}</h3>
+                          </div>
+                          <div class="col-8">
+                            <p>2018 average price</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="btnContainer">
                       <a href="#" class="ctaBtn">View Full Details</a>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-xl-3 col-lg-6">
                   <div id="data-retail" class="dataContainer">
                     <div class="dataTooltip"></div>
                     <h3>Retail Agency Locations</h3>
-                    <div class="mainStat">{{tot_agency_loc}}</div>
                     <div class="svgChart">
 
                     </div>
@@ -777,9 +847,9 @@
                 <div class="carousel-slide-content">
                   <div class="row">
                     <div class="col-lg-5 col-md-12">
-                      <h2 class="block-header alt">The Secret to Creating Data-Driven Teams</h2>
-                      <p>Data has never been more abundant &mdash; or more important. See how ARC is building a culture around data and analtyics through an engaged, empowered community of practice.</p>
-                      <a href="https://www2.arccorp.com/articles-trends/the-latest/The-Secret-to-Creating-Data-Driven-Teams/?utm_source=Jumbo_Carousal" title="Learn More" class="ctaBtn ctaBtn--main">Find Out How</a>
+                      <h2 class="block-header alt">Airline BI</h2>
+                      <p>ARC's Airline Business Intelligence (BI) tool provides airlines with detailed travel agency ticketed data to quickly measure sales performance, understand market share and identify market potential.</p>
+                      <a href="https://www2.arccorp.com/products-participation/products/airline-bi/?utm_source=Jumbo_Carousal" title="Learn More" class="ctaBtn ctaBtn--main">Find Out How</a>
                     </div>
                   </div>
                 </div>
@@ -791,9 +861,9 @@
                 <div class="carousel-slide-content">
                   <div class="row">
                     <div class="col-md-6">
-                      <h2 class="block-header alt">How to Measure Success in Business Travel</h2>
-                      <p>Business travel has long been managed by focusing on cost savings. This study challenges the wisdom of that approach. Instead, senior managment should prioritize trip success rates and road warrior rentention.</p>
-                      <a href="https://www2.arccorp.com/articles-trends/the-latest/Achieving-Better-Business-Results-Insights-from-US-Road-Warriors/?utm_source=Jumbo_Carousal" title="Find Out How" class="ctaBtn ctaBtn--main">Find Out How</a>
+                      <h2 class="block-header alt">Aria</h2>
+                      <p>Aria provides travel agencies with an easy way to view, analyze and download their weekly ARC-settled ticketing data through an online reporting tool or a raw data feed.</p>
+                      <a href="https://www2.arccorp.com/products-participation/products/aria/?utm_source=Jumbo_Carousal" title="Find Out How" class="ctaBtn ctaBtn--main">Find Out How</a>
                     </div>
                   </div>
                 </div>
@@ -805,10 +875,10 @@
                 <div class="carousel-slide-content">
                   <div class="row">
                     <div class="col-md-6">
-                      <h2 class="block-header alt">Are You NDC-Ready?</h2>
-                      <p>New Distribution Capability (NDC) transactions are now live <br />through ARC. Whether your organization is NDC-ready or <br />in the early stages of considering changes in distribution <br />strategy, ARC can help you
-                        navigate this shifting landscape.</p>
-                      <a href="https://www2.arccorp.com/articles-trends/the-latest/ndc-transactions-are-live-through-arc.-are-you-ndc-ready/?utm_source=Jumbo_Carousal" title="" Find Out How class="ctaBtn ctaBtn--main">Find out how</a>
+                      <h2 class="block-header alt">Custom Reports</h2>
+                      <p>ARC provides critical data for effective benchmarking, performance validation and identifying opportunities in an evolving market. Custom reports deliver the comprehensive analysis you need to enhance business
+                        strategy—either on their own or integrated into proprietary systems.</p>
+                      <a href="https://www2.arccorp.com/products-participation/products/arc-custom-reports/?utm_source=Jumbo_Carousal" title="" Find Out How class="ctaBtn ctaBtn--main">Find out how</a>
                     </div>
                   </div>
                 </div>
