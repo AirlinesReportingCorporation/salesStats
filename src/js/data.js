@@ -77,13 +77,13 @@ var app = new Vue({
       if (diff > 0) {
         return "<span class='positive'>+ " + numeral(diff).format("$0[.]00") + "</span>";
       } else {
-        return "<span class='negative'>- " + numeral(diff).format("$0[.]00") + "</span>";
+        return "<span class='negative'> " + numeral(diff).format("$0[.]00") + "</span>";
       }
     }
   },
   methods: {
     percentFormat: function(name) {
-      console.log(this[name]);
+      //console.log(this[name]);
       if (this[name] > 0) {
         return "<span class='positive'>+ " + this[name] + "%</span>";
       } else {
@@ -114,17 +114,29 @@ d3.csv(filePath, function(data) {
 
   //set current date
   currentDate = setCurrentDate();
+
+  //update currentDate to 2018 for Summary
+  //remove this line for live data
+  currentDate = currentDate.replace("2019", "2018");
+
+  var lastDate = "2018-12-01"
+
   oldestDate = setOldestDate();
 
   console.log(currentDate + ":" + oldestDate);
 
   //get index of the row for the current date
   currentDateID = setCurrentDateID();
-  console.log(currentDateID);
   oldestDateID = setOldestDateID();
-  console.log(oldestDateID);
+
+
+
+
+
   //get last year dates
   yoyDate = setYoyDate();
+
+
 
 
 
@@ -138,34 +150,34 @@ d3.csv(filePath, function(data) {
   data.tot_airlines = getDataPoint(currentDate, "CARR_CNT");
 
   // get total sales TOT_SALES_AMT
-  data.tot_sales = numeral(getDataPoint(currentDate, "TOT_SALES_AMT")).format('$0,0');
-  data.tot_sales_year = formatMonth(currentDate.split('-')[1]) + " " + currentDate.split('-')[0];
-  data.tot_sales_yoy = getYoyPercentage(currentDate, "TOT_SALES_AMT", "");
+  data.tot_sales = numeral(getDataTotalPoint(currentDate, "TOT_SALES_AMT")).format('$0,0');
+  data.tot_sales_year = currentDate.split('-')[0];
+  data.tot_sales_yoy = getYoyPercentage(currentDate, "TOT_SALES_AMT", "total");
 
   //get global segments yearly data
   data.global_segments = numeral(getDataTotalPoint(yoyDate, "TKT_CNT")).format('0,0');
-  data.global_segments_year = yoyDate.split('-')[0];
+  data.global_segments_year = currentDate.split('-')[0];
   data.global_segments_yoy = getYoyPercentage(yoyDate, "TKT_CNT", "total");
 
   //get passenger trips, column name: ALL_TRAN_CNT
-  data.passenger_trips = numeral(getDataPoint(currentDate, "ALL_TRAN_CNT")).format('0,0');
-  data.passenger_trips_year = formatMonth(currentDate.split('-')[1]) + " " + currentDate.split('-')[0];
-  data.passenger_trips_yoy = getYoyPercentage(currentDate, "ALL_TRAN_CNT", "");
+  data.passenger_trips = numeral(getDataTotalPoint(currentDate, "ALL_TRAN_CNT")).format('0,0');
+  data.passenger_trips_year = currentDate.split('-')[0];
+  data.passenger_trips_yoy = getYoyPercentage(currentDate, "ALL_TRAN_CNT", "total");
 
   // get emd total sales EMD_SALES_AMT
-  data.tot_emd_sales = numeral(getDataPoint(currentDate, "YTD_EMD_SALES_AMT")).format('$0,0');
-  data.tot_emd_sales_year = formatMonth(currentDate.split('-')[1]) + " " + currentDate.split('-')[0];
-  data.tot_emd_sales_yoy = getYoyPercentage(currentDate, "YTD_EMD_SALES_AMT", "");
+  data.tot_emd_sales = numeral(getDataTotalPoint(currentDate, "YTD_EMD_SALES_AMT")).format('$0,0');
+  data.tot_emd_sales_year = currentDate.split('-')[0];
+  data.tot_emd_sales_yoy = getYoyPercentage(currentDate, "YTD_EMD_SALES_AMT", "total");
 
-  // average ticket place AVG_TKT_PRICE
-  data.avg_tkt_price = numeral(getDataPoint(currentDate, "AVG_TKT_PRICE")).format('$0,0');
-  data.avg_tkt_price_ly = numeral(getDataTotalPoint(yoyDate, "AVG_TKT_PRICE")).format('$0');
-  data.avg_tkt_price_ytd = numeral(getDataTotalPoint(currentDate, "AVG_TKT_PRICE")).format('$0');
-  data.avg_tkt_price_yoy = getYoyPercentage(currentDate, "AVG_TKT_PRICE", "");
+  // average ticket place AVG_TKT_PRICE'
+  data.avg_tkt_price = numeral(getDataTotalPoint(currentDate, "AVG_TKT_PRICE")).format('$0,0');
+  data.avg_tkt_price_ly = numeral(getDataTotalPoint("2016-01-01", "AVG_TKT_PRICE")).format('$0');
+  data.avg_tkt_price_ytd = numeral(getDataTotalPoint(yoyDate, "AVG_TKT_PRICE")).format('$0');
+  data.avg_tkt_price_yoy = getYoyPercentage(currentDate, "AVG_TKT_PRICE", "total");
   data.avg_tkt_price_year = formatMonth(currentDate.split('-')[1]) + " " + currentDate.split('-')[0];
 
   // total retail agency Locations RETAIL_LOCATIONS_CNT
-  data.tot_agency_loc = numeral(getDataPoint(currentDate, "RETAIL_LOCATIONS_CNT")).format('0,0');
+  data.tot_agency_loc = numeral(getDataPoint(lastDate, "RETAIL_LOCATIONS_CNT")).format('0,0');
 
 
 
@@ -176,9 +188,9 @@ d3.csv(filePath, function(data) {
     ==============================================
   */
 
-  var totalSalesData = getYearsData(currentDate, 7, "TOT_SALES_AMT");
-  var yearGlobalSegments = getYearsTotalData(yoyDate, 7, "TKT_CNT");
-  var emdSalesData = getYearsData(currentDate, 7, "YTD_EMD_SALES_AMT");
+  var totalSalesData = getYearsTotalData(currentDate, 7, "TOT_SALES_AMT");
+  var yearGlobalSegments = getYearsTotalData(currentDate, 7, "TKT_CNT");
+  var emdSalesData = getYearsTotalData(currentDate, 6, "YTD_EMD_SALES_AMT");
   var retailLocData = [{
       name: "OTAs",
       value: 4855
@@ -234,7 +246,7 @@ function setTooltips() {
 
   new Tooltip($("#emd-sales .dataTooltip"), {
     placement: 'top', // or bottom, left, right, and variations
-    title: "Electronic miscellaneous document transactions indicate sales of ancillary services (e.g. premium seats) and other miscellaneous services settled separately from the airline ticket used for travel."
+    title: "Electronic miscellaneous document transactions indicate sales of ancillary services (e.g., premium seats) and other miscellaneous services settled separately from the airline ticket used for travel."
   });
 
   new Tooltip($("#data-airlines .dataTooltip"), {
@@ -405,7 +417,6 @@ function setCurrentDate() {
 
 //get id from currnet data
 function setCurrentDateID() {
-  console.log("test");
   var currentDateID = monthlyData.findIndex(function(e) {
     return e.DT == currentDate;
   });
@@ -642,12 +653,21 @@ function drawLineChart(selector, chartdata, xkey, ykey, dataAttr, dataAttr2, for
       return x(parseTime(d[xkey]));
     })
     .attr("y2", function(d) {
-      return y(parseInt(d[ykey])) + 10;
+      return y(parseInt(d[ykey])) + 9;
     })
     .attr("x1", function(d) {
       return x(parseTime(d[xkey]));
     })
-    .attr("y1", height);
+    .attr("y1", height + 10);
+
+  svg.append("line")
+    .attr("class", "vertLine")
+    .attr("x2", width + 5)
+    .attr("y2", height + 9)
+    .attr("x1", -5)
+    .attr("y1", height + 9)
+    .attr("style", "stroke-width: 2px");
+
 
   // Add the X Axis
   svg.append("g")
@@ -680,7 +700,7 @@ function drawDonutChart(selector, chartdata, xkey, ykey, totalCount) {
     height = 260 - margin.top - margin.bottom,
     radius = Math.min(width - 80, height) / 2;
 
-  console.log(radius);
+  //console.log(radius);
 
   var arc = d3.arc()
     .outerRadius(radius - 10)

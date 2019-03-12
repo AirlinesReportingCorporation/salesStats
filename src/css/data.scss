@@ -40,11 +40,18 @@
       }
     }
 
+    .historical {
+      color: #5d5c68;
+      font-family: SourceSansPro-Regular, arial, sans-serif;
+      font-size: 0.9rem;
+      text-align: right;
+    }
+
     .dataContainer {
       min-height: 430px;
       max-width: 262px;
-      background: #242529;
-      border: 1px solid #41454a;
+      background: #212226;
+      border: 1px solid #5d5c68;
       border-radius: 10px;
       margin-left: auto;
       margin-right: auto;
@@ -113,23 +120,26 @@
 
       .mainStatPercentChange {
         color: #96BE3C;
-        font-family: SourceSansPro-Regular, arial, sans-serif;
+        font-family: SourceSansPro-SemiBold, arial, sans-serif;
         font-size: 1.3rem;
+        margin-top: 30px;
 
         .negative {
-          color: #d50505;
+          color: #c67030;
         }
       }
 
       .mainStatPercentChangeCopy {
-        color: #ffffff;
-        font-family: SourceSansPro-Regular, arial, sans-serif;
-        font-size: 0.875rem;
+        display: inline-block;
+        color: #5d5c68;
+        font-family: SourceSansPro-Bold, arial, sans-serif;
+        font-size: 1rem;
+        margin-left: 5px;
       }
 
       .mainStatPercentChangeBar {
         margin-top: 15px;
-        background: #6f767e;
+        background: #5d5c68;
         height: 2px;
         overflow: hidden;
       }
@@ -139,7 +149,7 @@
         background: #96BE3C;
 
         &.negative {
-          background: #d50505;
+          background: #c67030;
         }
       }
 
@@ -161,8 +171,8 @@
       }
 
       a.ctaBtn {
-        background: #6f767e;
-        border-color: #6f767e;
+        background: #5d5c68;
+        border-color: #5d5c68;
         color: #242529;
         width: 100%;
       }
@@ -199,6 +209,15 @@
       .svgChart {
         background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/passengertrips-bg.png?1") center center no-repeat;
         overflow: hidden;
+        min-height: 110px;
+      }
+
+      .mainStatDate {
+        margin: 0;
+      }
+
+      .mainStatPercentChange {
+        margin-top: 25px;
       }
     }
 
@@ -253,7 +272,7 @@
 
         .mainStatDate {
           line-height: 50px;
-          color: #6f767e;
+          color: #5d5c68;
           font-size: 0.875rem;
           text-align: left;
           margin-bottom: 0;
@@ -261,15 +280,25 @@
           stroke: none;
           text-rendering: optimizeLegibility;
         }
+
+        .mainStatPercentChange {
+          margin-top: 0;
+        }
+      }
+
+      .mainStatPercentChangeBar {
+        margin-bottom: 15px;
       }
 
       .mainStatPercentChange {
-        margin-bottom: 30px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 1.175rem;
       }
 
       .ticketPrice {
-        border-top: 1px solid #6f767e;
-        padding: 0 20px;
+        border-top: 1px solid #5d5c68;
+        margin: 0 20px;
 
         &:hover {
           cursor: pointer;
@@ -278,6 +307,10 @@
           p {
             color: #ffffff;
           }
+        }
+
+        &:last-child {
+          border-bottom: 1px solid #5d5c68;
         }
 
         .row {
@@ -289,7 +322,7 @@
         h3 {
           font-family: SourceSansPro-Light, SourceSansPro-Regular, arial, sans-serif;
           font-size: 2.125rem;
-          color: #6f767e;
+          color: #5d5c68;
           margin: 0;
           line-height: 70px;
         }
@@ -298,7 +331,7 @@
           font-family: SourceSansPro-Regular, arial, sans-serif;
           font-size: 0.8rem;
           line-height: 70px;
-          color: #6f767e;
+          color: #5d5c68;
           margin-left: 20px;
         }
       }
@@ -315,8 +348,8 @@
       background-size: 100% auto;
 
       h2 {
-        color: #666666;
-        padding: 60px 0;
+        color: #5d5c68;
+        padding: 60px 0 80px;
 
         span {
           font-family: SourceSansPro-Bold, SourceSansPro-Regular, arial, sans-serif;

@@ -629,8 +629,8 @@
           <div class="dataSection1">
             <div class="container">
               <div class="row">
-                <div class="col-md-9">
-                  <h2>ARC has the <span>most comprehensive air transaction data</span>, which can be leveraged to identify travel trends and accelerate business growth.</h2>
+                <div class="col-md-10">
+                  <h2>ARC has the world's <span>most comprehensive air transaction data</span>, which can be leveraged to identify travel trends and accelerate business growth.</h2>
                 </div>
               </div>
               <div class="row">
@@ -646,7 +646,7 @@
                     <div class="mainStatPercentChange">
                       <span v-html="percentFormat('tot_sales_yoy')"></span>
                       <div class="mainStatPercentChangeCopy">
-                        Year over year
+                        YOY
                       </div>
                       <div class="mainStatPercentChangeBar">
                         <div class="barChange" v-bind:class="{ negative: tot_sales_yoy < 0 }" v-bind:style="{ width: tot_sales_yoy +'%'}"></div>
@@ -669,7 +669,7 @@
                     <div class="mainStatPercentChange">
                       <span v-html="percentFormat('global_segments_yoy')"></span>
                       <div class="mainStatPercentChangeCopy">
-                        Year over year
+                        YOY
                       </div>
                       <div class="mainStatPercentChangeBar">
                         <div class="barChange" v-bind:class="{ negative: global_segments_yoy < 0 }" v-bind:style="{ width: Math.abs(global_segments_yoy) +'%'}"></div>
@@ -692,7 +692,7 @@
                     <div class="mainStatPercentChange">
                       <span v-html="percentFormat('passenger_trips_yoy')"></span>
                       <div class="mainStatPercentChangeCopy">
-                        Year over year
+                        YOY
                       </div>
                       <div class="mainStatPercentChangeBar">
                         <div class="barChange" v-bind:class="{ negative: passenger_trips_yoy < 0 }" v-bind:style="{ width: Math.abs(passenger_trips_yoy) +'%'}"></div>
@@ -715,7 +715,7 @@
                     <div class="mainStatPercentChange">
                       <span v-html="percentFormat('tot_emd_sales_yoy')"></span>
                       <div class="mainStatPercentChangeCopy">
-                        Year over year
+                        YOY
                       </div>
                       <div class="mainStatPercentChangeBar">
                         <div class="barChange" v-bind:class="{ negative: tot_emd_sales_yoy < 0 }" v-bind:style="{ width: Math.abs(tot_emd_sales_yoy) +'%'}"></div>
@@ -727,6 +727,11 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="historical">Historcial data as of December 31, 2018.</p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -734,7 +739,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-9">
-                  <h2>ARC's data is versatile, delivering <span>acctionable insights</span> into broad trends and distinct details.</h2>
+                  <h2>ARC's data is versatile, delivering <span>actionable insights</span> into broad trends and distinct details.</h2>
                 </div>
               </div>
               <div class="row">
@@ -780,18 +785,19 @@
                           <h3>{{avg_tkt_price}}</h3>
                         </div>
                         <div class="col-8">
-                          <div class="mainStatDate">for {{tot_emd_sales_year}}</div>
+                          <!-- <div class="mainStatDate">YTD for {{tot_emd_sales_year}}</div> -->
                         </div>
                       </div>
                     </div>
                     <div class="mainStatPercentChange">
-                      <span v-html="getTicketYoy"></span>
-                      <div class="mainStatPercentChangeCopy">
-                        from last month
-                      </div>
                       <div class="mainStatPercentChangeBar">
                         <div class="barChange" v-bind:class="{ negative: avg_tkt_price_yoy < 0 }" v-bind:style="{ width: Math.abs(avg_tkt_price_yoy) +'%'}"></div>
                       </div>
+                      <span v-html="getTicketYoy"></span>
+                      <div class="mainStatPercentChangeCopy">
+                        YOY
+                      </div>
+
                     </div>
                     <div class="ticketPrices">
                       <div class="ticketPrice">
@@ -800,7 +806,7 @@
                             <h3>{{avg_tkt_price_ytd}}</h3>
                           </div>
                           <div class="col-8">
-                            <p>2019 YTD average price</p>
+                            <p>2017 YTD average price</p>
                           </div>
                         </div>
                       </div>
@@ -810,7 +816,7 @@
                             <h3>{{avg_tkt_price_ly}}</h3>
                           </div>
                           <div class="col-8">
-                            <p>2018 average price</p>
+                            <p>2016 YTD average price</p>
                           </div>
                         </div>
                       </div>
@@ -831,6 +837,11 @@
                       <a href="#" class="ctaBtn">View Full Details</a>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="historical">Historcial data as of December 31, 2018.</p>
                 </div>
               </div>
             </div>
