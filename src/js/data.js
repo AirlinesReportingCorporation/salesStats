@@ -7,6 +7,7 @@ import numeral from "numeral";
 import saveSvgAsPng from "save-svg-as-png";
 import Tooltip from "tooltip.js";
 import "isomorphic-fetch";
+import owlCarousel from 'owl.carousel';
 
 var findIndex = require('array.prototype.findindex');
 
@@ -15,6 +16,7 @@ findIndex.shim(); // if you want to install it on the global environment
 
 var monthlyData = [];
 var yearlyData = [];
+var posts = [];
 
 var yearlyDataIndex = 1000;
 
@@ -75,9 +77,9 @@ var app = new Vue({
       var avgtktprice = this.avg_tkt_price;
       var diff = parseFloat(this.avg_tkt_price_yoy) / 100 * parseFloat(String(avgtktprice).replace("$", ""));
       if (diff > 0) {
-        return "<span class='positive'>+ " + numeral(diff).format("$0[.]00") + "</span>";
+        return "<span class='positive'>+  $" + Math.floor(diff) + "</span>";
       } else {
-        return "<span class='negative'> " + numeral(diff).format("$0[.]00") + "</span>";
+        return "<span class='negative'>- $" + Math.floor(diff) + "</span>";
       }
     }
   },
@@ -220,12 +222,84 @@ d3.csv(filePath, function(data) {
   $("#emd-sales .dataBar").last().addClass("last");
 
   //draw retail agency locations drawDonutChart(selector, chartdata, xkey, ykey, totalCount)
-  drawDonutChart("#data-retail .svgChart", retailLocData, "name", "value", data.tot_agency_loc);
+  //drawDonutChart("#data-retail .svgChart", retailLocData, "name", "value", data.tot_agency_loc);
 
   //init setTooltips
   setTooltips();
-
+  initLatest();
 })
+
+function imageExists(image_url) {
+
+  var http = new XMLHttpRequest();
+
+  http.open('HEAD', image_url, false);
+  http.send();
+
+  return http.status != 404;
+
+}
+
+function setPostData(el) {
+  var post = {};
+  post.postTitle = el.find(".content-block--pageItem__title a").text();
+  post.postTags = el.find(".content-block--pageItem__metadata li").eq(0).text().split(',');
+  post.postDate = el.find(".content-block--pageItem__metadata li").eq(1).text();
+  post.postBody = el.find(".content-block--pageItem__body").text();
+
+
+  //getimageUrl
+  var link = el.find(".content-block--pageItem__title a").prop("href");
+
+  var subString = link.substring(link.indexOf("latest/") + 7).replace("/", "");
+  if (link.indexOf("arctravelconnect") > -1) {
+    subString = link.substring(link.indexOf("highlights/") + 11).replace("/", "");
+  }
+  var imgLink = "https://www2.arccorp.com/globalassets/homepage/redesign/latest/" + subString + ".jpg";
+  var imgLinkJumbo = 'https://www2.arccorp.com/globalassets/homepage/redesign/latest/' + subString + '-jumbo.jpg';
+
+  post.postImg = "";
+
+
+  if (parseInt(post.postDate.split(",")[1]) > 2017) {
+    var date = post.postDate.split(" ");
+
+    if ((date[0] == "Jan" || date[0] == "Feb" || date[0] == "Mar" || date[0] == "Apr") && date[2] == "2018") {
+
+    } else if (imageExists(imgLink)) {
+      post.postImg = imgLink;
+      post.postImgJumbo = imgLinkJumbo;
+    }
+  }
+
+  post.postLink = link;
+
+  return post;
+}
+
+//init latest data slider
+function initLatest() {
+  var el = $(".latest-data");
+
+  //add to javascript object
+  for (var i = 0; i < $(".content-block--pageItem").length; i++) {
+    posts.push(setPostData($(".content-block--pageItem").eq(i)));
+  }
+
+  function getTemplate(post) {
+    post.link = post.link + "?utm_source=our_data";
+
+    var template = "<div class=' col-md-4'><div class='dataArticle'><div class='dataArticleImg'><a href='" + post.postLink + "'><img src='" + post.postImg +"'></a></div><div class='dataArticleTitle'><a href='" + post.postLink + "'>" + post.postTitle + "</a></div><div class='dataArticleBody'>" + post.postBody + "</div><div class='dataArticleLink'><a href='" + post.postLink + "'>Read More</a></div></div></div>";
+
+    return template;
+  }
+
+  //append html
+  for(var i = 0; i < 1; i += 1){
+    $('.dataArticlesInner').append("<div class='dataArticleSection'><div class='row'>" + getTemplate(posts[i]) + getTemplate(posts[i + 1]) + getTemplate(posts[i + 2]) + "</div></div>");
+  }
+
+}
 
 //set tooltips
 function setTooltips() {
@@ -516,7 +590,7 @@ function drawBarChart(selector, chartdata, xkey, ykey, dataAttr, dataAttr2, form
         val = numeral(val).format("0,0");
       }
 
-      key = formatMonth(key.split('-')[1]) + " " + key.split('-')[0];
+      key = key.split('-')[0];
 
       data[dataAttr] = val;
       data[dataAttr2] = key;
@@ -531,7 +605,7 @@ function drawBarChart(selector, chartdata, xkey, ykey, dataAttr, dataAttr2, form
         val = numeral(val).format("0,0");
       }
 
-      key = formatMonth(key.split('-')[1]) + " " + key.split('-')[0];
+      key = key.split('-')[0];
 
       data[dataAttr] = val;
       data[dataAttr2] = key;
@@ -553,9 +627,9 @@ function drawBarChart(selector, chartdata, xkey, ykey, dataAttr, dataAttr2, form
 function drawLineChart(selector, chartdata, xkey, ykey, dataAttr, dataAttr2, format, timeType) {
   var margin = {
       top: 15,
-      right: 20,
+      right: 35,
       bottom: 10,
-      left: 20
+      left: 35
     },
     width = 260 - margin.left - margin.right,
     height = 100 - margin.top - margin.bottom;
@@ -597,7 +671,7 @@ function drawLineChart(selector, chartdata, xkey, ykey, dataAttr, dataAttr2, for
     .data(chartdata)
     .enter().append("circle")
     .attr("class", "dataPoint")
-    .attr("r", 5)
+    .attr("r", 4.5)
     .attr("cx", function(d) {
 
       return x(parseTime(d[xkey]));
@@ -617,7 +691,7 @@ function drawLineChart(selector, chartdata, xkey, ykey, dataAttr, dataAttr2, for
       if (timeType === "total") {
         key = key.split('-')[0];
       } else {
-        key = formatMonth(key.split('-')[1]) + " " + key.split('-')[0];
+        key = key.split('-')[0];
       }
 
       data[dataAttr] = val;
@@ -642,7 +716,7 @@ function drawLineChart(selector, chartdata, xkey, ykey, dataAttr, dataAttr2, for
 
       data[dataAttr] = val;
       data[dataAttr2] = key;
-      d3.select(this).transition().attr("r", 5);
+      d3.select(this).transition().attr("r", 4.5);
     });
 
   svg.selectAll('lines')

@@ -21,6 +21,10 @@
 .data-panel+footer {
   margin-top: 0 !important;
 }
+
+.latest-data {
+  display: none;
+}
 /* Our Data */
 
 .ourData {
@@ -29,7 +33,7 @@
   .dataSections {
     .dataSection1,
     .dataSection2 {
-      background: #242529;
+      background: #2a2b31;
       padding: 60px 0;
 
       h2 {
@@ -55,7 +59,7 @@
       border-radius: 10px;
       margin-left: auto;
       margin-right: auto;
-      margin-bottom: 30px;
+      margin-bottom: 12px;
       padding: 20px 0;
       position: relative;
 
@@ -71,7 +75,7 @@
         background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/tooltip.png");
         height: 18px;
         width: 18px;
-        top: 20px;
+        top: 22px;
         right: 20px;
         z-index: 2;
 
@@ -113,16 +117,16 @@
         font-size: 1rem;
         color: #ffffff;
         text-align: center;
-        font-family: SourceSansPro-Light, SourceSansPro-Regular, arial, sans-serif;
+        font-family: SourceSansPro-SemiBold, SourceSansPro-Regular, arial, sans-serif;
         margin-bottom: 15px;
-        margin-top: 10px;
+        margin-top: 7px;
       }
 
       .mainStatPercentChange {
         color: #96BE3C;
         font-family: SourceSansPro-SemiBold, arial, sans-serif;
         font-size: 1.3rem;
-        margin-top: 30px;
+        margin-top: 35px;
 
         .negative {
           color: #c67030;
@@ -189,6 +193,17 @@
       }
     }
 
+    .mainStatInner {
+      height: 53px;
+    }
+
+    .mainStatCurr {
+      color: #727a83;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-family: SourceSansPro-SemiBold, arial, sans-serif;
+    }
+
     #emd-sales,
     #global-segments,
     #passenger-trips,
@@ -207,17 +222,15 @@
 
     #passenger-trips {
       .svgChart {
-        background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/passengertrips-bg.png?1") center center no-repeat;
+        background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/trips.png?123928") center center no-repeat;
         overflow: hidden;
-        min-height: 110px;
+        min-height: 102px;
+        margin-top: 2px;
+        background-position-y: 15px;
       }
 
       .mainStatDate {
         margin: 0;
-      }
-
-      .mainStatPercentChange {
-        margin-top: 25px;
       }
     }
 
@@ -234,9 +247,26 @@
       }
 
       .svgChart {
-        background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/airlines-bg.png?1") center center no-repeat;
+        background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/airlines.png?123928") center center no-repeat;
         overflow: hidden;
-        height: 282px;
+        height: 335px;
+      }
+
+      .mainStat {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+      }
+    }
+
+    #data-commissions {
+      .svgChart {
+        background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/commissions.png?123928") center center no-repeat;
+        overflow: hidden;
+        padding: 35px 0;
+        margin: 0 20px;
+        height: 230px;
+        border-bottom: 2px solid #5d5c68;
       }
 
       .mainStat {
@@ -246,14 +276,42 @@
       }
 
       .mainStatInner {
-        margin-top: 40px;
+        height: 40px;
       }
-    }
 
-    #data-commissions {
-      .svgChart {
-        background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/passengertrips-bg.png?1") center center no-repeat;
-        overflow: hidden;
+      .secondaryStats {
+        margin: 0 auto;
+        width: 150px;
+      }
+
+      .secondaryStat {
+        display: inline-block;
+        text-align: center;
+        width: 70px;
+        font-size: 0;
+        line-height: 1.2;
+        margin-top: 7px;
+      }
+
+      .secondaryStatPercent {
+        color: #129bb2;
+        font-family: SourceSansPro-Bold, arial, sans-serif;
+        font-size: 20px;
+
+        &.other {
+          color: #c5b593;
+        }
+      }
+
+      .secondaryName {
+        color: #ffffff;
+        font-family: SourceSansPro-SemiBold, arial, sans-serif;
+        font-size: 15px;
+      }
+
+      .secondaryPrice {
+        font-family: SourceSansPro-Bold, arial, sans-serif;
+        font-size: 15px;
       }
     }
 
@@ -271,10 +329,11 @@
         }
 
         .mainStatDate {
+          font-family: SourceSansPro-SemiBold, arial, sans-serif;
           line-height: 50px;
-          color: #5d5c68;
+          color: #ffffff;
           font-size: 0.875rem;
-          text-align: left;
+          text-align: right;
           margin-bottom: 0;
           margin-top: 0;
           stroke: none;
@@ -328,7 +387,7 @@
         }
 
         p {
-          font-family: SourceSansPro-Regular, arial, sans-serif;
+          font-family: SourceSansPro-SemiBold, arial, sans-serif;
           font-size: 0.8rem;
           line-height: 70px;
           color: #5d5c68;
@@ -338,35 +397,69 @@
     }
 
     #data-retail {
+      padding-top: 0;
+
+      .svgChart {
+        background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/agencies.png?123928") center center no-repeat;
+        overflow: hidden;
+        height: 335px;
+      }
+
+      .mainStat {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+      }
+
       h3 {
-        margin-bottom: 15px;
+        margin-bottom: 30px;
+        position: absolute;
+        height: 18px;
+        width: 222px;
+        top: 20px;
+        left: 0;
       }
     }
 
     .dataSection1 {
-      background: #242529 url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/dataSection1.jpg?1") top center no-repeat;
+      background: #2a2b31 url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/dataSection1.jpg?1239s28") top center no-repeat;
       background-size: 100% auto;
+      padding-top: 20px;
+      position: relative;
 
       h2 {
-        color: #5d5c68;
+        color: #888888;
         padding: 60px 0 80px;
 
         span {
-          font-family: SourceSansPro-Bold, SourceSansPro-Regular, arial, sans-serif;
+          font-family: SourceSansPro-SemiBold, SourceSansPro-Regular, arial, sans-serif;
           color: #fd2472;
         }
+      }
+
+      .container {
+        position: relative;
+        z-index: 2;
       }
     }
 
     .dataSection2 {
-      background: #242529 url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/dataSection2.jpg") top center no-repeat;
+      background: #2a2b31 url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/dataSection2.jpg?lsdf") top center no-repeat;
       background-size: 100% auto;
+      position: relative;
+      overflow: hidden;
+
+      .geoPatternWhite {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
 
       h2 {
-        padding: 300px 0 60px;
+        padding: 220px 0 60px;
 
         span {
-          font-family: SourceSansPro-Bold, SourceSansPro-Regular, arial, sans-serif;
+          font-family: SourceSansPro-SemiBold, SourceSansPro-Regular, arial, sans-serif;
           color: #189bb0;
         }
       }
@@ -392,7 +485,7 @@
       .owl-dots {
         bottom: 35px;
         position: absolute;
-        right: 50%;
+        right: 51%;
         width: 570px;
         margin-right: 0;
         text-align: left;
@@ -435,31 +528,53 @@
         width: 100%;
         z-index: 3;
 
+        .carousel-eyebrow {
+          font-family: SourceSansPro-Bold, helvetica, arial, sans-serif;
+          color: #fd2472;
+          text-transform: uppercase;
+          font-size: 0.9rem;
+          margin-bottom: 12px;
+        }
+
         .block-header {
           font-family: SourceSansPro-Light, helvetica, arial, sans-serif;
           font-size: 3rem;
-          color: #ffffff;
+          color: #e1e1e1;
           text-align: left;
         }
 
         p {
-          font-family: RobotoSlab-Light, SourceSansPro-Regular, helvetica, arial, sans-serif;
+          font-family: RobotoSlab-Light, helvetica, arial, sans-serif;
           font-size: 1.125rem;
-          line-height: 1.5rem;
+          line-height: 1.75rem;
+          color: #e1e1e1;
         }
       }
 
       .slide-11 {
-        background: url("https://www2.arccorp.com/globalassets/homepage/redesign/slides/carousel11.jpg") center center no-repeat;
-        background-size: cover;
+        background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/product1.jpg") right center no-repeat;
+        background-size: auto 100%;
+        background-position-x: 450px;
+      }
+
+      .slide-12 {
+        background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/product3.jpg") right center no-repeat;
+        background-size: auto 100%;
+        background-position-x: 450px;
+      }
+
+      .slide-13 {
+        background: url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/product4.jpg") right center no-repeat;
+        background-size: auto 100%;
+        background-position-x: 450px;
       }
     }
   }
 
   .transactionData {
-    background: #242529 url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/transactionaldata.jpg") top center no-repeat;
+    background: #2a2b31 url("https://www2.arccorp.com/globalassets/about-us/our-data/redesign/transactionaldata.jpg") top center no-repeat;
     background-size: 100% auto;
-    padding: 60px 0;
+    padding: 90px 0 60px;
 
     .transactionTitle {
       text-align: center;
@@ -470,15 +585,20 @@
       font-family: SourceSansPro-Semibold, SourceSansPro-Regular, arial, sans-serif;
       font-size: 3.25rem;
       margin-bottom: 60px;
+      line-height: 1;
     }
 
     .dataFeatures {
       background: rgba(0,0,0,0.7);
       color: #ffffff;
-      padding: 60px;
+      padding: 54px 85px;
 
       img {
         margin-bottom: 20px;
+      }
+
+      .dataFeature {
+        padding: 0 35px;
       }
 
       .dataFeatureTitle {
@@ -491,6 +611,86 @@
 
       p {
         color: #d6d8db;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  .dataArticles {
+    padding: 80px 0;
+    text-align: center;
+
+    h2 {
+      color: #ffffff;
+      font-family: SourceSansPro-Semibold, SourceSansPro-Regular, arial, sans-serif;
+      font-size: 3.25rem;
+      margin-bottom: 60px;
+      line-height: 1;
+    }
+
+    .dataArticleSection {
+      max-width: 1170px;
+      margin: 0 auto;
+    }
+
+    .dataArticle {
+      max-width: 280px;
+      min-height: 570px;
+      margin: 0 auto;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .dataArticleBody,
+    .dataArticleTitle {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .dataArticleImg {
+      text-align: center;
+
+      img {
+        max-width: 280px;
+        width: 100%;
+      }
+    }
+
+    .dataArticleTitle {
+      text-align: left;
+      margin: 25px 0;
+
+      a {
+        font-family: SourceSansPro-Regular, arial, sans-serif;
+        color: #ffffff;
+        font-size: 21px;
+      }
+    }
+
+    .dataArticleBody {
+      text-align: left;
+      color: #bbbbbb;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .dataArticleLink {
+      text-align: left;
+      color: #189bb0;
+      position: absolute;
+      bottom: 15px;
+      margin-top: 10px;
+      left: 45px;
+
+      a {
+        font-family: SourceSansPro-SemiBold, helvetica, arial, sans-serif;
+        text-transform: uppercase;
+
+        &::after {
+          font-family: 'icomoon';
+          content: "\E909";
+          font-size: 0.675rem;
+          margin-left: 10px;
+        }
       }
     }
   }
@@ -500,13 +700,15 @@
     background-size: cover;
     position: relative;
     color: #ffffff;
-    padding: 120px 0;
+    padding: 150px 0;
     overflow: hidden;
 
     h2 {
       color: #ffffff;
-      font-family: Roboto-Slab, SourceSansPro-Regular, helvetica, arial, sans-serif;
-      font-size: 3rem;
+      font-family: SourceSansPro-Semibold, SourceSansPro-Regular, arial, sans-serif;
+      font-size: 3.25rem;
+      margin-bottom: 30px;
+      line-height: 1;
     }
 
     .blockText {
