@@ -119,7 +119,7 @@ d3.csv(filePath, function(data) {
 
   //update currentDate to 2018 for Summary
   //remove this line for live data
-  currentDate = currentDate.replace("2019", "2018");
+  currentDate = currentDate.replace("2020", "2019");
 
   var lastDate = "2018-12-01"
 
